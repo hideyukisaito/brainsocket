@@ -40,7 +40,6 @@ app.get('/', function(req, res){
     });
 });
 
-// Only listen on $ node app.js
 
 app.listen(port, host);
 
