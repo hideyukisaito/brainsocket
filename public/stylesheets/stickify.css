@@ -1,0 +1,17 @@
+.sticky {
+    position: absolute;
+    min-width: 100px;
+    min-height: 10px;
+    padding: 10px 10px 10px 18px;
+    background: #f8b5ab;
+    font-size: 12px;
+    color: #000;
+    display: none;
+    opacity: 0.9;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+.sticky:hover, .sticky:active {
+    cursor: move;
+}
