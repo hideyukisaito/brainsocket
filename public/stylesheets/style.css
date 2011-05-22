@@ -81,7 +81,7 @@ html, body {
     z-index: 100;
 }
 
-#sticky-board {
+#sticky-board, #mind-board {
     position: absolute;
     width: 3000px;
     height: 3000px;
@@ -90,8 +90,14 @@ html, body {
     -moz-user-select: none;
     -webkit-user-select: none;
 }
-#sticky-board:hover {
+#sticky-board:hover, #mind-board:hover {
     cursor: move;
+}
+#sticky-board {
+    z-index: 2;
+}
+#mind-board {
+    z-index: 1;
 }
 
 #counter {

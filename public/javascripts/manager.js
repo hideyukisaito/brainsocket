@@ -9,6 +9,7 @@ var EVENT_CONNECT          = 'connect',
 
 function initializeSocket() {
     socket = new io.Socket('192.168.1.6', 3000);
+    socket.connect();
     socket.on(EVENT_MESSAGE, function(obj) { messageHandler(obj); });
     socket.on(EVENT_CONNECT, function() {
         messageHandler({ info: 'System Connected' });
@@ -25,7 +26,6 @@ function initializeSocket() {
     socket.on(EVENT_RECONNECT_FAILED, function() {
         messageHandler({ info: 'System Reconnected to server FAILED.'});
     });
-    socket.connect();
 }
 
 function messageHandler(msg) {
@@ -46,7 +46,8 @@ function messageHandler(msg) {
     } else if ('info' in msg) {
         notify(msg.info);
     } else if ('sticky' in msg) {
-        var s = msg[i].sticky;
+        console.log(msg);
+        var s = msg.sticky;
         createSticky(s.text, s.options);
     }
 }
