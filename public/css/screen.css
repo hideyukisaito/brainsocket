@@ -1,0 +1,374 @@
+/* reset.css */
+html {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+code,
+del,
+dfn,
+em,
+img,
+q,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+dialog,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+article,
+aside,
+dialog,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1.5;
+  background: white;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  float: none !important;
+}
+table, th, td {
+  vertical-align: middle;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+}
+blockquote, q {
+  quotes: "" "";
+}
+a img {
+  border: none;
+}
+:focus {
+  outline: 0;
+}
+ul, ol, dl {
+  list-style: none;
+  list-style-type: none;
+}
+body {
+  font: 13px Helvetica, Arial, 'ヒラギノ角ゴ Pro W3', 'Osaka', sans-serif;
+  background: url(/images/bgtexture.png) repeat;
+}
+#canvas-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.6;
+}
+#grid {
+  position: fixed;
+  z-index: 1;
+}
+#wrap {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+}
+#wrap #header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: url(/images/header.png) repeat-x;
+  z-index: 9999;
+}
+#wrap #header #logo {
+  float: left;
+  width: 306px;
+  height: 35px;
+  margin: 7px 0 0 45px;
+}
+#wrap #header #nav {
+  float: right;
+  top: 0;
+  right: 0;
+  height: 50px;
+}
+#wrap #header #nav #mode {
+  float: left;
+  height: inherit;
+  text-align: center;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+#wrap #header #nav #mode span {
+  padding: 0 20px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 50px;
+}
+#wrap #header #nav #edit {
+  float: left;
+  width: 49px;
+  height: inherit;
+  background: url(/images/edit.png) no-repeat;
+  border-right: 1px solid white;
+}
+#wrap #header #nav #edit:hover {
+  cursor: pointer;
+  background: url(/images/edit-hover.png) no-repeat;
+}
+#wrap #header #nav #edit ul {
+  position: absolute;
+  top: 50px;
+  right: 49px;
+  display: none;
+  color: white;
+  background: #d08d7c;
+}
+#wrap #header #nav #edit ul li {
+  padding: 5px 10px;
+  border-bottom: 1px dotted white;
+}
+#wrap #header #nav #edit:hover ul {
+  display: block;
+}
+#wrap #header form {
+  float: left;
+  line-height: 50px;
+}
+#wrap #header #settings {
+  float: right;
+  width: 49px;
+  height: inherit;
+  background: url(/images/setting.png) no-repeat;
+}
+#wrap #header #settings:hover {
+  cursor: pointer;
+  background: url(/images/setting-hover.png) no-repeat;
+}
+#wrap #header #settings ul {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  display: none;
+  color: white;
+  background: #d08d7c;
+}
+#wrap #header #settings ul li {
+  padding: 5px 10px;
+  border-bottom: 1px dotted white;
+}
+#wrap #header #settings:hover ul {
+  display: block;
+}
+#wrap #content-wrap {
+  clear: both;
+  position: relative;
+  padding: 30px;
+  margin-top: 20px;
+  z-index: 1000;
+}
+#wrap #content-wrap #info {
+  position: fixed;
+  top: 5px;
+  right: 15px;
+  width: 230px;
+  height: auto;
+  z-index: 10000;
+}
+#wrap #content-wrap #info .notification {
+  padding: 10px 10px 10px 12px;
+  margin-bottom: 12px;
+  color: white;
+  background: #252525;
+  display: none;
+  opacity: 0.8;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+#wrap #content-wrap #board-container {
+  clear: both;
+  width: 100%;
+  height: 650px;
+  margin-top: 20px;
+  overflow: hidden;
+  z-index: 100;
+  background: url(/images/bgtexture.png) repeat;
+}
+#wrap #content-wrap #board-container .no-select {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+#wrap #content-wrap #board-container #sticky-board {
+  position: absolute;
+  width: 3000px;
+  height: 3000px;
+  background: url(/images/grid.png) repeat;
+  z-index: 2;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+#wrap #content-wrap #board-container #sticky-board:hover {
+  cursor: move;
+}
+#wrap #content-wrap #board-container #mind-board {
+  position: absolute;
+  width: 3000px;
+  height: 3000px;
+  display: none;
+  background: url(/images/grid.png) repeat;
+  z-index: 1;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+#counter {
+  position: fixed;
+  bottom: 40px;
+  left: 15px;
+  color: white;
+  background: #000;
+  width: 100px;
+  padding: 10px;
+  font-size: 17px;
+  z-index: 10000;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+#dialog {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -135px 0 0 -220px;
+  width: 420px;
+  height: 270px;
+  z-index: 2000;
+}
+#dialog ul {
+  position: relative;
+  top: 8px;
+  left: 10px;
+  list-style: none;
+}
+#dialog ul li {
+  float: left ;
+  padding-left: 40px;
+  margin-right: 10px;
+  line-height: 30px;
+}
+#dialog ul li:hover {
+  cursor: pointer;
+}
+#dialog ul li.text {
+  width: 64px;
+  height: 30px;
+  background: url('/images/dialog/tab_text.png') no-repeat;
+}
+#dialog ul li.image {
+  width: 41px;
+  height: 30px;
+  background: url('/images/dialog/tab_image.png') no-repeat;
+}
+#dialog ul li.video {
+  width: 51px;
+  height: 30px;
+  padding-left: 38px;
+  background: url('/images/dialog/tab_video.png') no-repeat;
+}
+#dialog ul li.sound {
+  width: 33px;
+  height: 30px;
+  padding-left: 36px;
+  background: url('/images/dialog/tab_sound.png') no-repeat;
+}
+#dialog #dialog-body {
+  position: relative;
+  width: 400px;
+  height: 247px;
+}
+#dialog #dialog-body textarea {
+  width: 363px;
+  margin: 20px 0 0 20px;
+}
+#dialog div.text {
+  background: url('/images/dialog/dialog_text.png') no-repeat;
+}
+#dialog div.image {
+  background: url('/images/dialog/dialog_image.png') no-repeat;
+}
+#dialog div.video {
+  background: url('/images/dialog/dialog_video.png') no-repeat;
+}
+#dialog div.sound {
+  background: url('/images/dialog/dialog_sound.png') no-repeat;
+}

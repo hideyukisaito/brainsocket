@@ -47,14 +47,16 @@ var socket = io.listen(app),
     buffer = [];
 
 socket.on('connection', function(client) {
-    console.log(client.sessionId + ' connected. Buffer', buffer);
     client.send({ buffer: buffer });
     client.broadcast({ info: client.sessionId + ' connected' });
     
-    client.on('message', function(message) {
-        if ('sticky' in message) {
-            buffer.push(message);
-            client.broadcast(message);
+    client.on('message', function(msg) {
+        if ('sticky' in msg) {
+            buffer.push(msg);
+            client.broadcast(msg);
+        } else if ('position' in msg) {
+            console.log(msg.position);
+            client.broadcast(msg.position);
         }
     });
     

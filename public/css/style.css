@@ -1,0 +1,353 @@
+/* reset.css */
+html {margin:0;padding:0;border:0;}
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+article, aside, dialog, figure, footer, header, hgroup, nav, section {display:block;}
+body {line-height:1.5;background:white;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;float:none !important;}
+table, th, td {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+:focus {outline:0;}
+
+body {
+    font: 13px Helvetica, Arial, 'ヒラギノ角ゴ Pro W3', 'Osaka', sans-serif;
+    background: url(/images/bgtexture.png) repeat;
+}
+
+#canvas-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    opacity: 0.6;
+}
+#grid {
+    position: fixed;
+    z-index: 1;
+}
+
+
+/*------------------------- common effects --*/
+
+.shadow {
+    box-shadow: 0 0 10px black;
+    -moz-box-shadow: 0 0 10px black;
+    -webkit-box-shadow: 0 0 10px black;
+}
+
+
+/*------------------------- wrap --*/
+#wrap {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+}
+
+
+/*------------------------- dialog --*/
+
+#dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -160px 0 0 -240px;
+    width: 500px;
+    height: 350px;
+    overflow: hidden;
+    z-index: 2000;
+}
+#dialog ul {
+    margin: 0 0 0 10px;
+    list-style: none;
+}
+#dialog ul li {
+    float: left;
+    position: relative;
+    margin: 0 0 0 3px;
+}
+#dialog ul li:hover {
+    cursor: pointer;
+}
+#dialog ul li span {
+    display: block;
+    position: relative;
+    height: 30px;
+    padding-left: 40px;
+    line-height: 30px;
+    z-index: 2;
+}
+#dialog ul li .container {
+    display: none;
+    position: absolute;
+    width: 480px;
+    height: 300px;
+    padding: 10px;
+    background: #d08d7c;
+    z-index: 1;
+    cursor: default;
+}
+#dialog ul li.current {
+    z-index: 100;
+}
+#dialog ul li.current .container {
+    display: block;
+    box-shadow: 0 0 10px black;
+    -moz-box-shadow: 0 0 10px black;
+    -webkit-box-shadow: 0 0 10px black;
+}
+
+#dialog ul li .container .embedcode {
+    display: block;
+}
+
+/*- each tab -*/
+
+#dialog li.text span {
+    width: 64px;
+    background: url(/images/dialog/tab_text.png) no-repeat;
+}
+
+#dialog li.image span {
+    width: 41px;
+    background: url(/images/dialog/tab_image.png) no-repeat;
+}
+#dialog ul li.image.current .container {
+    margin-left: -107px;
+}
+
+#dialog li.video span {
+    width: 51px;
+    padding-left: 38px;
+    background: url(/images/dialog/tab_video.png) no-repeat;
+}
+#dialog ul li.video.current .container {
+    margin-left: -191px;
+}
+#dialog li.video .container .preview {
+    float: left;
+    width: 270px;
+    height: 222px;
+    overflow: hidden;
+    background: #000;
+}
+#dialog li.video .container .embedcode {  
+    float: right;
+    width: 190px;
+    height: 200px;
+}
+#dialog li.video .container .embedcode textarea {
+    width: 170px;
+    height: 150px;
+    padding: 3px;
+    background: #DADADA;
+}
+
+#dialog li.sound span {
+    width: 40px;
+    padding-left: 36px;
+    background: url(/images/dialog/tab_sound.png) no-repeat;
+}
+#dialog ul li.sound.current .container {
+    margin-left: -283px;
+}
+
+#dialog-body {
+    display: none;
+    position: relative;
+    width: 440px;
+    height: 247px;
+    background: #d08d7c;
+}
+#dialog-body h2 {
+    display: inline;
+}
+#dialog-body textarea {
+    width: 363px;
+    margin: 20px 0 0 20px;
+}
+#dialog div.text {
+    
+}
+
+
+/*------------------------- header --*/
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: url(/images/header.png) repeat-x;
+    z-index: 9999;
+}
+
+/*-------------- logo --*/
+#logo {
+    float: left;
+    width: 306px;
+    height: 35px;
+    margin: 7px 0 0 45px;
+}
+
+/*-------------- nav --*/
+#nav {
+    float: right;
+    top: 0;
+    right: 0;
+    height: 50px;
+    
+}
+#mode {
+    float: left;
+    height: inherit;
+    text-align: center;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+}
+#mode span {
+    padding: 0 20px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+#edit {
+    float: left;
+    width: 49px;
+    height: inherit;
+    background: url(/images/edit.png) no-repeat;
+    border-right: 1px solid white;
+}
+#edit ul {
+    position: absolute;
+    top: 50px;
+    right: 49px;
+    display: none;
+    list-style: none;
+    color: white;
+    background: #d08d7c;
+}
+#edit:hover {
+    cursor: pointer;
+    background: url(/images/edit-hover.png) no-repeat;
+}
+#edit:hover ul {
+    display: block;
+}
+
+#settings {
+    float: right;
+    width: 49px;
+    height: inherit;
+    background: url(/images/setting.png) no-repeat;
+}
+#settings ul {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    display: none;
+    list-style: none;
+    color: white;
+    background: #d08d7c;
+}
+#edit ul li, #settings ul li {
+    padding: 5px 10px;
+    border-bottom: 1px dotted white;
+}
+
+#settings:hover {
+    cursor: pointer;
+    background: url(/images/setting-hover.png) no-repeat;
+}
+#settings:hover ul {
+    display: block;
+}
+
+#header form {
+    float: left;
+    line-height:50px;
+}
+
+#info {
+    position: fixed;
+    top: 5px;
+    right: 15px;
+    width: 230px;
+    height: auto;
+    z-index: 10000;
+}
+#info .notification {
+    padding: 10px 10px 10px 12px;
+    margin-bottom: 12px;
+    color: white;
+    background: #252525;
+    display: none;
+    opacity: 0.8;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+#content-wrap {
+    clear: both;
+    position: relative;
+    padding: 30px;
+    margin-top: 20px;
+    z-index: 1000;
+}
+
+#board-container {
+    clear: both;
+    position: relative;
+    width: 100%;
+    height: 650px;
+    margin-top: 20px;
+    overflow: hidden;
+    z-index: 100;
+    background: url(/images/bgtexture.png) repeat;
+}
+
+#sticky-board, #mind-board {
+    position: absolute;
+    width: 3000px;
+    height: 3000px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    background: url(/images/grid.png) repeat;
+}
+#sticky-board:hover, #mind-board:hover {
+    cursor: move;
+}
+#sticky-board {
+    z-index: 2;
+}
+#mind-board {
+    display: none;
+    z-index: 1;
+}
+
+#counter {
+    position: fixed;
+    bottom: 40px;
+    left: 15px;
+    color: white;
+    background: #000;
+    width: 100px;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    z-index: 10000;
+}

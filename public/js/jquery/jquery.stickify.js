@@ -1,6 +1,7 @@
 (function($) {
-    var stickifyId;
-    $.fn.stickify = function(text, options) {
+    var mysocket, stickifyId;
+    $.fn.stickify = function(text, options, socket) {
+        mysocket = mysocket || socket;
         stickifyId = stickifyId || options.stickifyId || 0;
         stickifyId = parseInt(stickifyId);
         
@@ -20,7 +21,9 @@
         var settings = $.extend({}, defaults, options);
         
         return this.each(function(i) {
+            $children = $(this).children();
             $(this)
+                .attr('id', 'sticky_' + settings.stickifyId)
                 .data('stickify_id', '' + settings.stickifyId)
                 .data('author_id', settings.authorId)
                 .addClass('sticky')
@@ -31,7 +34,7 @@
                     'font-size' : parseInt(settings.size)
                 })
                 .mousedown(function(e) {
-                    $(this).css({'z-index': 1000})
+                    $(this).css({'z-index': 1000});
                     var sticky = $(this),
                         offsetSticky = $(this).offset(),
                         offsetBoard  = $('#' + settings.boardId).offset(),
@@ -49,6 +52,15 @@
                         .mousemove(function(e) {
                             destX = (e.pageX - mouseOffsetX) - offsetBoard.left;
                             destY = (e.pageY - mouseOffsetY) - offsetBoard.top;
+                            if (mysocket) {
+                                mysocket.send({
+                                    position: {
+                                        stickify_id: settings.stickifyId,
+                                        x: destX,
+                                        y: destY
+                                    }
+                                });
+                            }
                         })
                         .mouseup(function(e) {
                             clearInterval(intervalId);
@@ -58,6 +70,7 @@
                         
                 })
                 .appendTo('#' + settings.boardId)
+                .append($children)
                 .fadeIn(settings.fadeTime);
         });
     };

@@ -1,32 +1,67 @@
 #canvas-wrap
     canvas#grid
 #wrap
+    #header
+        h1#logo
+            img(src='/images/logo.png', width='306', height='35')
+        #nav
+            #mode
+                span Sticky Mode
+            #edit
+                ul
+                    li.new-sticky: a(href='') 新規スティッキー
+                    li.edit-sticky: a(href='') スティッキーを編集
+                    li.del-sticky: a(href='') スティッキーを削除
+            #settings
+                ul
+                    li#new-session: a(href='') 新規セッション
+                    li#join-session: a(href='') セッションに参加
+                    li#add-member: a(href='') メンバーを追加 
+        form#form
+            input(type='text', autocomplete='off')#text
+            label(for='font-size') font size
+            select(name='font-size')#font-size
+                option(value='12') 12
+                option(value='13') 13
+                option(value='14') 14
+                option(value='16') 16
+                option(value='18') 18
+                option(value='20') 20
+                option(value='22') 22
+                option(value='25') 25
+                option(value='28') 28
+                option(value='30') 30
+                option(value='33') 33
+                option(value='35') 35
+                option(value='38') 38
+                option(value='40') 40
+            input(type='submit', value='Send', id='submit')
     #counter setInterval
     #content-wrap
-        #header
-            h1= title
-            form#form
-                input(type='text', autocomplete='off')#text
-                label(for='font-size') font size
-                select(name='font-size')#font-size
-                    option(value='12') 12
-                    option(value='13') 13
-                    option(value='14') 14
-                    option(value='16') 16
-                    option(value='18') 18
-                    option(value='20') 20
-                    option(value='22') 22
-                    option(value='25') 25
-                    option(value='28') 28
-                    option(value='30') 30
-                    option(value='33') 33
-                    option(value='35') 35
-                    option(value='38') 38
-                    option(value='40') 40
-                input(type='submit', value='Send', id='submit')
         #info
             p
         #board-container
             #sticky-board
             #mind-board
-script(type='text/javascript', src='/javascripts/bggrid.js')
+    #dialog
+        ul
+            li.text.current
+                span テキスト
+                .container
+                    textarea(rows='5', cols='50', name='text')
+            li.image
+                span 画像
+                .container
+            li.video
+                span ビデオ
+                .container
+                    .preview
+                    .embedcode
+                        textarea
+                        input(type='button', value='ビデオを読み込む').read
+                    input(type='button', value='スティッキーを作成').create-sticky
+            li.sound
+                span 音楽
+                .container
+        #dialog-body.text.shadow
+            textarea(rows='5', cols='50', name='text')

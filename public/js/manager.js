@@ -1,29 +1,23 @@
-var EVENT_CONNECT          = 'connect',
-    EVENT_DISCONNECT       = 'disconnect',
-    EVENT_MESSAGE          = 'message',
-    EVENT_RECONNECT        = 'reconnect',
-    EVENT_RECONNECTING     = 'reconnecting',
-    EVENT_RECONNECT_FAILED = 'reconnect_failed',
-    socket,
+var socket,
     isInitialized = false;
 
-function initializeSocket() {
+function initSocket() {
     socket = new io.Socket('192.168.1.6', 3000);
     socket.connect();
-    socket.on(EVENT_MESSAGE, function(obj) { messageHandler(obj); });
-    socket.on(EVENT_CONNECT, function() {
+    socket.on('message', function(obj) { messageHandler(obj); });
+    socket.on('connect', function() {
         messageHandler({ info: 'System Connected' });
     });
-    socket.on(EVENT_DISCONNECT, function() {
+    socket.on('disconnect', function() {
         messageHandler({ info: 'System Disconnected' });
     });
-    socket.on(EVENT_RECONNECT, function() {
+    socket.on('reconnect', function() {
         messageHandler({ info: 'System Reconnected to server' });
     });
-    socket.on(EVENT_RECONNECTING, function(nextRetry){
+    socket.on('reconnecting', function(nextRetry){
         messageHandler({ info: 'System Attempting to re-connect to the server, next attempt in ' + nextRetry + 'ms'});
     });
-    socket.on(EVENT_RECONNECT_FAILED, function() {
+    socket.on('reconnect_failed', function() {
         messageHandler({ info: 'System Reconnected to server FAILED.'});
     });
 }
@@ -40,7 +34,7 @@ function messageHandler(msg) {
                     s.options.stickifyId = buf.length;
                     isInitialized = true;
                 }
-                createSticky(s.text, s.options);
+                createSticky(s.text, s.options, socket);
             }
         }
     } else if ('info' in msg) {
@@ -49,6 +43,10 @@ function messageHandler(msg) {
         console.log(msg);
         var s = msg.sticky;
         createSticky(s.text, s.options);
+    } else if ('x' in msg && 'y' in msg) {
+        console.log(msg);
+        var sticky = $('#sticky_' + msg.stickify_id).css({'z-index': 1000});
+        $(sticky).css({ 'left': msg.x + 'px', 'top': msg.y + 'px' });
     }
 }
 
@@ -64,25 +62,32 @@ function notify(msg) {
 }
 
 // サーバーへ新規スティッキーの情報を送信.
-function registerSticky(text, options) {
+function registerSticky(content, options) {
     options.authorId = socket.transport.sessionid;
-    var newSticky = createSticky(text, options);
+    var newSticky;
+    if (content.indexOf('iframe') != -1) {
+        content = $(modIframeSize(content, 270, 222));
+        newSticky = $('<div style="padding:10px;"></div>').append(content).stickify('', options, socket);
+    } else {
+        newSticky = createSticky(content, options, socket);
+    }
     options.stickifyId = parseInt($(newSticky).data('stickify_id'));
-    var stickyObj = {
+    socket.send({
         sticky: {
-            text: text,
+            text: content,
             options: options
         }
-    };
-    socket.send(stickyObj);
+    });
 }
 
 // 新規スティッキーを作成.
-function createSticky(text, options) {
-    return $('<div></div>').stickify(text, options);
+function createSticky(text, options, soc) {
+    return $('<div></div>').stickify(text, options, soc);
 }
 
-function sendMessage(msg) {
-    socket.send(msg);
-    messageHandler({ message: ['you', msg] });
+
+function modIframeSize(iframe, w, h) {
+    return iframe
+        .replace(/(width="[0-9]{3}")/, 'width="' + w + '"')
+        .replace(/(height="[0-9]{3}")/, 'height="' + h + '"');
 }
