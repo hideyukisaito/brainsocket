@@ -36,13 +36,13 @@
                 .mousedown(function(e) {
                     $(this).css({'z-index': 1000});
                     var sticky = $(this),
-                        offsetSticky = $(this).offset(),
+                        offsetSticky = sticky.offset(),
                         offsetBoard  = $('#' + settings.boardId).offset(),
                         mouseOffsetX = e.pageX - offsetSticky.left,
                         mouseOffsetY = e.pageY - offsetSticky.top,
                         destX, destY,
                         intervalId   = setInterval(function() {
-                            $(sticky).stop().animate({
+                            sticky.stop().animate({
                                 left: destX + 'px',
                                 top : destY + 'px'
                             }, settings.speed, settings.easing);

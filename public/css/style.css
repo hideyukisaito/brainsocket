@@ -52,15 +52,14 @@ body {
 
 /*------------------------- dialog --*/
 
-#dialog {
+#dialog { /* ダイアログ全体を包含するらっぱ */
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
-    margin: -160px 0 0 -240px;
-    width: 500px;
-    height: 350px;
-    overflow: hidden;
+    margin: -200px 0 0 -290px;
+    width: 600px;
+    height: 400px;
     z-index: 2000;
 }
 #dialog ul {
@@ -84,20 +83,28 @@ body {
     z-index: 2;
 }
 #dialog ul li .container {
-    display: none;
     position: absolute;
-    width: 480px;
-    height: 300px;
+    width: 580px;
+    height: 350px;
     padding: 10px;
     background: #d08d7c;
+    display: none;
+    opacity: 0;
     z-index: 1;
     cursor: default;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
 }
 #dialog ul li.current {
     z-index: 100;
 }
 #dialog ul li.current .container {
     display: block;
+    opacity: 1;
     box-shadow: 0 0 10px black;
     -moz-box-shadow: 0 0 10px black;
     -webkit-box-shadow: 0 0 10px black;
@@ -310,7 +317,7 @@ body {
     clear: both;
     position: relative;
     width: 100%;
-    height: 650px;
+    height: 700px;
     margin-top: 20px;
     overflow: hidden;
     z-index: 100;

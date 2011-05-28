@@ -1,8 +1,11 @@
+#!/usr/bin/env node
 var io      = require('socket.io'),
     express = require('express'),
     port    = 3000,
-    host    = 'localhost';
+    host    = 'localhost'
+    appName = 'BrainSocket';
 
+// 
 if (process.argv.length == 3) {
     port = process.argv[2];
 } else if (process.argv.length == 4) {
@@ -35,9 +38,22 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', function(req, res){
-    res.render('index', {
-        title: 'BrainSocket'
-    });
+    var mobile = req.headers['user-agent'].match(/iphone|android|mobile/i);
+    if (mobile) {
+        if (mobile[0].toLowerCase() == 'iphone') {
+            res.render('mobile/index', {
+                title: appName,
+            });
+        } else if (mobile[0].toLowerCase() == 'android') {
+            res.render('mobile/index', {
+                title: appName,
+            });
+        }
+    } else {
+        res.render('index', {
+            title: appName,
+        });
+    }
 });
 
 

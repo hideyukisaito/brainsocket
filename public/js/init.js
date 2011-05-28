@@ -44,12 +44,6 @@ $(function() {
         }
     });
     
-    $('#dialog ul li').click(function() {
-        $(this)
-            .siblings('.current')
-            .removeClass('current');
-        $(this).addClass('current');
-    });
     $('#dialog ul li .read').click(function() {
         var e = $(this).siblings('textarea').val(),
             c = $(this).parents('.container').children('.preview'),
@@ -66,14 +60,30 @@ $(function() {
             size    : $('#font-size').val(),
         });
     });
+    
+    $('#dialog li').click(function() {
+        $('#dialog li.current').addClass('fadeout');
+        $(this)
+            .children('.container')
+            .crossFade('#dialog .current .container', {
+                callbackOut: function() {
+                    $('#dialog li.fadeout').removeClass('current').removeClass('fadeout');
+                },
+                easeIn : 'easeOutCirc',
+                easeOut:'easeOutCirc'
+            });
+        $(this).addClass('current');
+    });
 });
 
 function hitTest(e) {
+    var s, o, w, h, st = $('.sticky');
+    if (!st.length) return false;
+    
     var str2num = function(str) {
         return parseInt(str.replace(/px/, ''));
     };
     
-    var s, o, w, h, st = $('.sticky');
     for (var i = 0; i < st.length; i++) {
         s = $(st).eq(i);
         o = $(s).offset();
@@ -90,19 +100,20 @@ function hitTest(e) {
 function onBoardMouseDown(e) {
     
     if (hitTest(e)) return false;
+    
     var count = 0;
-    var board           = $('#sticky-board'),
-        offsetBoard     = $(board).offset(),
-        offsetContainer = $('#board-container').offset(),
+    var board           = $(this),
+        offsetBoard     = board.offset(),
+        offsetContainer = board.parent().offset(),
         mouseOffsetX    = e.pageX - offsetBoard.left,
         mouseOffsetY    = e.pageY - offsetBoard.top,
         fps             = 1000 / 30,
         destX, destY,
-        intervalId = setInterval(function() {
-            $(board).stop().animate({
+        interval = setInterval(function() {
+            board.stop().animate({
                 left: destX + 'px',
                 top : destY + 'px'
-            }, 100, 'linear', function() {
+            }, 30, function() {  
                 if ($(this).offset().left > offsetContainer.left &&
                     $(this).offset().top  > offsetContainer.top) {
                     $(this).animate({ left: '0px', top : '0px' }, 1000, 'easeOutElastic');
@@ -117,17 +128,17 @@ function onBoardMouseDown(e) {
             $('#counter').empty().append('<em>setInterval: ' + (count++) + '<em>');
         }, fps);
     
-    $('#board-container')
+    $(this).parent()
         .bind('mousemove', function(e) {
             destX = (e.pageX - mouseOffsetX) - offsetContainer.left;
             destY = (e.pageY - mouseOffsetY) - offsetContainer.top;
         })
-        .mouseup(function(e) {
-            clearInterval(intervalId);
-            $(this).unbind('mousemove');
+        .bind('mouseup', function(e) {
+            clearInterval(interval);
+            $(this).unbind('mousemove').unbind('mouseup').unbind('mouseout');
         })
-        .mouseout(function(e) {
-            clearInterval(intervalId);
-            $(this).unbind('mousemove');
+        .bind('mouseout', function(e) {
+            clearInterval(interval);
+            $(this).unbind('mousemove').unbind('mouseout').unbind('mouseup');
         });
 }

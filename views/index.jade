@@ -46,14 +46,14 @@
     #dialog
         ul
             li.text.current
-                span テキスト
+                span.dialog-tab テキスト
                 .container
                     textarea(rows='5', cols='50', name='text')
             li.image
-                span 画像
+                span.dialog-tab 画像
                 .container
             li.video
-                span ビデオ
+                span.dialog-tab ビデオ
                 .container
                     .preview
                     .embedcode
@@ -61,7 +61,9 @@
                         input(type='button', value='ビデオを読み込む').read
                     input(type='button', value='スティッキーを作成').create-sticky
             li.sound
-                span 音楽
+                span.dialog-tab 音楽
                 .container
         #dialog-body.text.shadow
             textarea(rows='5', cols='50', name='text')
+        
+script(type='text/javascript', src='/js/jquery/jquery.crossFade.js')
